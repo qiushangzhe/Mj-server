@@ -1,9 +1,9 @@
-import { MjGroup } from './mjGroup';
-import { MjCard } from './mjCard';
-import { DoorCard } from './doorCard';
-import { HandCard } from '../modules/handCard';
+import { MjGroup } from './MjCard/mjGroup';
+import { MjCard } from './MjCard/mjCard';
+import { DoorCard } from './MjCard/doorCard';
+import { HandCard } from '../modules/MjCard/handCard';
 import { PlayerInfoInterface } from '../interfaces/playerInfo.interface';
-import { DiscardPool } from './discardPool';
+import { DiscardPool } from './MjCard/discardPool';
 import { CardState } from '../enums/card.enum';
 import { Action } from '../enums/action.enum';
 /*

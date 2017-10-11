@@ -3,8 +3,8 @@
     by:qiusz
     createDate:2017-10-11
 */
-import { CardType,CardState } from '../enums/card.enum';
-import { CardInterface,CardStateInterface } from '../interfaces/card.interface';
+import { CardType,CardState } from '../../enums/card.enum';
+import { CardInterface,CardStateInterface } from '../../interfaces/card.interface';
 
 export class MjCard {
     // 麻将牌花色类型

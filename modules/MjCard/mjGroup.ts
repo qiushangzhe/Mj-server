@@ -1,5 +1,5 @@
 import { MjCard } from './mjCard';
-import { Action } from '../enums/action.enum';
+import { Action } from '../../enums/action.enum';
 // 一组牌 可能是碰 杠 吃 
 export class MjGroup{
     // 一组牌都是什么

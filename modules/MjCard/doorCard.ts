@@ -1,7 +1,7 @@
 import { MjGroup } from './mjGroup';
 import { MjCard } from './mjCard';
 import { CardListControl } from './cardListControl';
-import { Action } from '../enums/action.enum';
+import { Action } from '../../enums/action.enum';
 /*
     intro:玩家门牌的抽象对象 
     remark:门牌指的是吃碰杠后亮出的牌
