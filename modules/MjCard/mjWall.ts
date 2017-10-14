@@ -19,7 +19,7 @@ export class MjWall {
     }
 
     // 初始化牌墙
-    initWall() {
+    initWall(level:number) {
         if(this._cardConfig.hasWan){
             this.addWanCard();
         }
@@ -115,14 +115,14 @@ export class MjWall {
     }
 }
 // --------------  debug ------------
-// const a = new MjWall({
-//     hasWan : true,
-//     hasTiao : true,
-//     hasBing : true,
-//     hasFeng : true,
-//     hasJian : true,
-//     hasHua : true
-// });
+const a = new MjWall({
+    hasWan : true,
+    hasTiao : true,
+    hasBing : true,
+    hasFeng : true,
+    hasJian : true,
+    hasHua : true
+});
 
 // a.initWall();
 // let b = a.getCardWall();

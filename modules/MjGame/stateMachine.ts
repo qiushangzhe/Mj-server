@@ -1,6 +1,19 @@
 import { MainStage } from '../../enums/stage.enum';
+
+let stateChnChar = [
+    '掷骰子阶段',
+    '发牌阶段',
+    '处理手牌阶段',
+    '游戏开始',
+    '打牌',
+    '打牌后处理',
+    '抓牌',
+    '抓牌后处理',
+    '游戏结算'
+];
+
 export class StateMachine {
-    private nowStage: MainStage = null;
+    nowStage: MainStage = null;
     constructor() {
         this.nowStage = null;
     }
@@ -49,7 +62,7 @@ export class StateMachine {
         this.nowStage = MainStage.STAGE_AFTER_DRAWCARD;
     }
 
-    // 打牌
+    // 游戏结算
     changeToFinal(){
         this.nowStage = MainStage.STAGE_FINAL_BALANCE;
     }
