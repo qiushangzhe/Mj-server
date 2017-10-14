@@ -13,9 +13,10 @@ export class MjCard {
     private _point: Number = null;
     // 当前牌的状态
     private _state:CardStateInterface = null;
-    constructor(obj:CardInterface){
+    constructor(obj:CardInterface,state:CardStateInterface){
         this._type = obj.type;
         this._point = obj.point;
+        this._state = state;
     }
 
     getCard(){
