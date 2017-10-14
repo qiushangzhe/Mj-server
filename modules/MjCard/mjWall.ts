@@ -1,5 +1,6 @@
 import { Position } from '../../enums/player.enum';
 import { CardState, CardType } from '../../enums/card.enum';
+import { CardTranslate } from '../../debugTools/CardTranslate';
 /*
     intro:牌墙的抽象对象
     by:qiusz
@@ -98,8 +99,19 @@ export class MjWall {
         //用Math.random()函数生成0~1之间的随机数与0.5比较，返回-1或1
     }
 
+    // 获取牌墙
     getCardWall(){
         return this._wall;
+    }
+
+    // 头抓牌
+    headDrawCard(){
+        return this._wall.shift();
+    }
+
+    // 尾抓牌
+    tailDrawCard(){
+        return this._wall.pop();
     }
 }
 // --------------  debug ------------
@@ -113,4 +125,8 @@ export class MjWall {
 // });
 
 // a.initWall();
+// let b = a.getCardWall();
+// b.map((data)=>{
+//     console.log(CardTranslate.change(data));
+// });
 // console.log(a.getCardWall().length);

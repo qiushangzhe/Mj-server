@@ -19,6 +19,13 @@ export class MjCard {
         this._state = state;
     }
 
+    getCardObj(){
+        return {
+            type : this._type,
+            point : this._point
+        }
+    }
+
     getCard(){
         return JSON.stringify({
             type : this._type,
