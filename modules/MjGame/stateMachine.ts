@@ -53,4 +53,8 @@ export class StateMachine {
     changeToFinal(){
         this.nowStage = MainStage.STAGE_FINAL_BALANCE;
     }
+
+    getNowStage(){
+        return this.nowStage;
+    }
 }
