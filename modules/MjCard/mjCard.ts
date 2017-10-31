@@ -8,11 +8,11 @@ import { CardInterface,CardStateInterface } from '../../interfaces/card.interfac
 
 export class MjCard {
     // 麻将牌花色类型
-    private _type: CardType = null;
+    _type: CardType = null;
     // 麻将牌点数
-    private _point: Number = null;
+    _point: Number = null;
     // 当前牌的状态
-    private _state:CardStateInterface = null;
+    _state:CardStateInterface = null;
     constructor(obj:CardInterface,state:CardStateInterface){
         this._type = obj.type;
         this._point = obj.point;

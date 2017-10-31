@@ -11,13 +11,15 @@ import { Action } from '../enums/action.enum';
 */
 export class Player {
     // 玩家的手牌
-    private handCards: HandCard = null;
+    handCards: HandCard = null;
     // 玩家的门牌
-    private doorCard: DoorCard = null;
+    doorCard: DoorCard = null;
     // 玩家的弃牌
-    private discardPool: DiscardPool = null;
+    discardPool: DiscardPool = null;
     // 玩家的一些基本信息
-    private baseData: PlayerInfoInterface = null;
+    baseData: PlayerInfoInterface = null;
+    // 玩家的ws对象
+    ws = null;
     // 构造函数
     constructor(info: PlayerInfoInterface) {
         this.baseData = info;

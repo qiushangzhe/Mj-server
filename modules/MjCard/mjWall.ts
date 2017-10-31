@@ -72,7 +72,7 @@ export class MjWall {
     }
 
     // 添加牌 1. 类型 2. 一共多少张 3.每种几张
-    addCard(type, total, time) {
+    addCard(type:any, total:any, time:any) {
         for (let card = 1; card <= total; card++) {
             for (let i = 0; i < time; i++) {
                 let mjcard = new MjCard({
@@ -88,13 +88,13 @@ export class MjWall {
     }
 
     // 打乱牌墙
-    randomWall(num){
+    randomWall(num:any){
         for(let i =0;i<num;i++){
             this._wall.sort(this.randomsort);
         }
     }
 
-    randomsort(a, b) {
+    randomsort(a:any, b:any) {
         return Math.random()>.5 ? -1 : 1;
         //用Math.random()函数生成0~1之间的随机数与0.5比较，返回-1或1
     }
@@ -111,7 +111,17 @@ export class MjWall {
 
     // 尾抓牌
     tailDrawCard(){
-        return this._wall.pop();
+        let card = this._wall.pop();
+        return card;
+    }
+
+    // 抓多少张牌
+    drawCardFromWall(num){
+        let list:Array<MjCard> = [];
+        for(var i=0;i<num;i++){
+            list.push(this.headDrawCard());
+        }
+        return list;
     }
 }
 // --------------  debug ------------

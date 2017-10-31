@@ -4,7 +4,7 @@ export enum Sex {
 }
 
 export enum Position {
-    DONG = 1,
+    DONG = 0,
     NAN,
     XI,
     BEI,

@@ -18,7 +18,7 @@ export class CardTranslate {
         return point+type;
     }
 
-    public static pointTranslate(obj:{type;point}){
+    public static pointTranslate(obj:{type:any;point:any}){
         if(obj.type === CardType.WAN || obj.type === CardType.TIAO || obj.type === CardType.BING){
             return chnNumChar[obj.point];       
         }else if(obj.type === CardType.FENG){

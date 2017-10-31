@@ -26,13 +26,13 @@ export class MjGroup{
         return false;
     }
 
-    createPeng(card){
+    createPeng(card:any){
         this.createGroup(card,3);
         this.groupType = Action.PENG;
         return this;
     }
 
-    createGang(card,type:Action){
+    createGang(card:any,type:Action){
         this.createGroup(card,4);
         this.groupType = type;
         return this;

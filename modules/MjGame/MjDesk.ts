@@ -12,12 +12,14 @@ interface Seat {
 }
 
 export class MjDesk {
+    // special
+    specialCards ;
     // 庄家位置
-    public zhuangPosition:Position = null;
+    public zhuangPosition:Position = Position.DONG;
     // 座位
     private seats: Array<Seat> = [];
     // 牌
-    private cardWall: MjWall = null;
+    public cardWall: MjWall = null;
 
     constructor() {
 
@@ -32,13 +34,13 @@ export class MjDesk {
     initCardWall(){
         this.cardWall = new MjWall({
             hasWan : true,
-            hasTiao : false,
-            hasBing : false,
+            hasTiao : true,
+            hasBing : true,
             hasFeng : true,
             hasJian : true,
             hasHua : false
         });
-        this.cardWall.initWall(3);
+        this.cardWall.initWall(5);
     }
 
     // 初始化椅子
@@ -50,9 +52,47 @@ export class MjDesk {
         this.seats.push({ player: null, position: Position.BEI });
     }
 
-    playerSit(){
-        
+    // 玩家坐在椅子上
+    playerSit(player:Player){
+        for(let index in this.seats){
+            if(this.seats[index].player === null){
+                this.seats[index].player = player;
+                player.baseData.position = this.seats[index].position;
+                return true;
+            }
+        }
+        return false;
     }
 
-    
+    // 是否所有的玩家都坐在了椅子上
+    isAllPlayerEnter(){
+        for(let index in this.seats){
+            if(this.seats[index].player === null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // 获取所有的椅子
+    getSeats(){
+        return this.seats;
+    }
+
+    // 给所有玩家发牌
+    initPlayerHandCard(){
+        for(let index in this.seats){
+            let cardList = null;
+            if(this.seats[index].position === this.zhuangPosition){
+                cardList  = this.cardWall.drawCardFromWall(14);
+            }else{
+                cardList = this.cardWall.drawCardFromWall(13);
+            }
+            this.seats[index].player.initHandCards(cardList);
+            this.seats[index].player.ws.send(JSON.stringify({
+                type : 'INITHANDCARD',
+                data : cardList
+            }));
+        }
+    }
 }
