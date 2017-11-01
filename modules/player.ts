@@ -25,6 +25,14 @@ export class Player {
         this.baseData = info;
     }
     // ------------初始化------------
+    
+    // 0.初始化玩家
+    initPlayer(){
+        this.initHandCards([]);
+        this.initDoorCard([]);
+        this.initDiscardPool([]);
+    }
+
     // a.初始化手牌
     initHandCards(cardList: Array<MjCard>) {
         this.handCards = new HandCard(cardList);
@@ -39,6 +47,7 @@ export class Player {
     initDiscardPool(cardList: Array<MjCard>) {
         this.discardPool = new DiscardPool(cardList);
     }
+
 
     // ------------主动变换操作------------
     // a.吃牌 
@@ -75,6 +84,10 @@ export class Player {
         this.doorCard.ChangeBuGang(card);
     }
 
+    // f. 打牌
+    Action_DisCard(card: MjCard){
+        return this.handCards.deleteCardFromList(card);
+    }
     // --------------被动变换操作-------------
     // a.被吃牌
     BeAction_Chi(card:MjCard){
@@ -88,4 +101,5 @@ export class Player {
     BeAction_Gang(card:MjCard){
         this.discardPool.deleteCardFromList(card);
     }
+
 }

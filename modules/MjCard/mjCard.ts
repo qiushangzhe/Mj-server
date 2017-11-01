@@ -13,10 +13,10 @@ export class MjCard {
     _point: Number = null;
     // 当前牌的状态
     _state:CardStateInterface = null;
-    constructor(obj:CardInterface,state:CardStateInterface){
+    constructor(obj:CardInterface,state?:CardStateInterface){
         this._type = obj.type;
         this._point = obj.point;
-        this._state = state;
+        this._state = state || null;
     }
 
     getCardObj(){
@@ -40,5 +40,17 @@ export class MjCard {
 
     getCardStage(){
         return this._state;
+    }
+
+    // 判断另一张牌和自己是不是一样的
+    compareCard(otherCard:MjCard){
+        console.log('------------比对开始-----------');
+        console.log('当前牌type:',this._type,'point:',this._point);
+        console.log('目标牌type:',otherCard._type,'point:',otherCard._point);
+        console.log('type比较结果:',this._type == otherCard._type);
+        console.log('point比较结果:',this._point == otherCard._point);
+        console.log('比对结果',(this._type == otherCard._type && this._point == otherCard._point));
+        console.log('------------比对结束-----------');
+        return (this._type == otherCard._type && this._point == otherCard._point);
     }
 }

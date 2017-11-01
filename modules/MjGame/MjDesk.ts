@@ -22,11 +22,6 @@ export class MjDesk {
     public cardWall: MjWall = null;
 
     constructor() {
-
-    }
-
-    initDesk() {
-        this.initCardWall();
         this.initSeats();
     }
 
@@ -50,6 +45,23 @@ export class MjDesk {
         this.seats.push({ player: null, position: Position.NAN });
         this.seats.push({ player: null, position: Position.XI });
         this.seats.push({ player: null, position: Position.BEI });
+    }
+
+    // 新的一局开始 初始化
+    initNewTurn(){
+        for(let index in this.seats){
+            this.seats[index].player.initPlayer();
+        }
+        this.changeSit();
+    }
+
+    // 轮换座位
+    changeSit(){
+        let buffer = this.seats[3].position;
+        this.seats[3].position = this.seats[2].position;
+        this.seats[2].position = this.seats[1].position;
+        this.seats[1].position = this.seats[0].position;
+        this.seats[0].position = buffer;
     }
 
     // 玩家坐在椅子上
