@@ -1,3 +1,4 @@
+import { SPlayer } from './../../modules/smartPlayer';
 import { MjCard } from './../../modules/MjCard/mjCard';
 import { MessageTypeAck, MessageTypeError } from '../../enums/message.enum';
 import { MainStage } from '../../enums/stage.enum';
@@ -60,7 +61,7 @@ export class GameServe extends NetModule {
             ws.on('close', () => {
                 if (ws.player) {
                     this.g.trace(`玩家${ws.player.baseData.name}离开了游戏`);
-                    ws.player.ws = null;
+                    ws.player.network.clearWs();
                 }
             })
         });
@@ -78,14 +79,14 @@ export class GameServe extends NetModule {
             let findPlayerObj = this.gameObject.findPlayerByName(msg.data.username);
             if (findPlayerObj === null) {
                 //1. 创建玩家对象
-                let userObj = new Player({
+                let userObj = new SPlayer({
                     name: username
-                });
+                },ws);
 
                 ws.player = userObj;
 
                 //2. 将玩家对象加入
-                userObj.ws = ws;
+                userObj.network.addWs(ws);
                 let result = this.gameObject.playerJoinGame(userObj);
                 if (result === '入座失败') {
                     this.e.error('当前桌坐满了，请检查到底是谁多进来了');
@@ -97,15 +98,16 @@ export class GameServe extends NetModule {
                 }
             } else {
                 // 发送错误消息
-                findPlayerObj.ws.send(JSON.stringify({
+                findPlayerObj.network.sendData({
                     type: MessageTypeError.ERROR_KICKING,
                     message: '当前有人登陆你的账号，把你踢掉了'
-                }));
+                });
                 // 断开连接
-                findPlayerObj.ws.player = null;
-                findPlayerObj.ws.close();
+                findPlayerObj.network.forgotPlayer();
+                findPlayerObj.network.closeWs();
                 // 接管新的ws连接
-                findPlayerObj.ws = ws;
+                findPlayerObj.network.addWs(ws);
+                ws.player = findPlayerObj;
             }
         }
     }
@@ -117,8 +119,9 @@ export class GameServe extends NetModule {
 
     // 收到了某个玩家打牌的消息
     Msg_DisCard(ws, msg) {
+        console.log(ws.player);
         this.g.trace(`收到玩家${ws.player.baseData.name}的打牌消息${JSON.stringify(msg)}`);
-        let result = this.gameObject.playerDisCard(ws,msg);
+        let result = this.gameObject.ackPlayerDisCard(ws,msg);
         if(result === 'playerNone'){
             this.e.error(`当前ws发送的数据是${JSON.stringify(msg)}有问题。导致通过ws反查用户时找不到用户数据`);
         }else if(result === 'notYourTurn'){

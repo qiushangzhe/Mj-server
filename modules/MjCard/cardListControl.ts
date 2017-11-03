@@ -50,4 +50,8 @@ export class CardListControl{
         return true;
     }
 
+    getCardList (){
+        return this.cardList;
+    }
+
 }

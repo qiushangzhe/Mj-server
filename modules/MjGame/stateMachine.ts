@@ -1,3 +1,5 @@
+import { GameEvent } from './../../interfaces/event.interface';
+import { MjCard } from './../MjCard/mjCard';
 import { MainStage } from '../../enums/stage.enum';
 let stateChnChar = [
     '掷骰子阶段',
@@ -58,17 +60,17 @@ export abstract class StateMachine {
     /**
      *  - 切换到打牌阶段
      */
-    changeToDisCard(){
+    changeToDisCard(event:GameEvent){
         this.nowStage = MainStage.STAGE_DISCARD;
-        this.StateDisCardCallBack();
+        this.StateDisCardCallBack(event);
     }
 
     /**
      *  - 切换到打牌后处理阶段
      */
-    changeToAfterDisCard(){
+    changeToAfterDisCard(event:GameEvent){
         this.nowStage = MainStage.STAGE_AFTER_DISCARD;
-        this.StateAfterDisCardCallBack();
+        this.StateAfterDisCardCallBack(event);
     }
 
     /**
@@ -127,12 +129,12 @@ export abstract class StateMachine {
     /**
      *  打牌阶段回调
      */
-    abstract StateDisCardCallBack();
+    abstract StateDisCardCallBack(event:GameEvent);
 
     /**
      *  打牌后处理阶段回调
      */
-    abstract StateAfterDisCardCallBack();
+    abstract StateAfterDisCardCallBack(event:GameEvent);
 
     /**
      *  抓牌阶段回调

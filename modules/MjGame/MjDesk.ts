@@ -1,13 +1,13 @@
+import { SPlayer } from '../smartPlayer';
 import { MainLogic } from './mainLogic';
 import { MjWall } from './../MjCard/mjWall';
-import { Player } from './../player';
 import { Position } from '../../enums/position.enum';
 /*
     麻将桌的抽象对象
 */
 
 interface Seat {
-    player: Player;
+    player: SPlayer;
     position: Position;
 }
 
@@ -65,7 +65,7 @@ export class MjDesk {
     }
 
     // 玩家坐在椅子上
-    playerSit(player:Player){
+    playerSit(player:SPlayer){
         for(let index in this.seats){
             if(this.seats[index].player === null){
                 this.seats[index].player = player;
@@ -101,10 +101,10 @@ export class MjDesk {
                 cardList = this.cardWall.drawCardFromWall(13);
             }
             this.seats[index].player.initHandCards(cardList);
-            this.seats[index].player.ws.send(JSON.stringify({
+            this.seats[index].player.network.sendData({
                 type : 'INITHANDCARD',
                 data : cardList
-            }));
+            });
         }
     }
 }

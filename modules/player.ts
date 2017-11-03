@@ -9,7 +9,7 @@ import { Action } from '../enums/action.enum';
 /*
     麻将玩家的抽象对象
 */
-export class Player {
+export abstract class Player {
     // 玩家的手牌
     handCards: HandCard = null;
     // 玩家的门牌
@@ -102,4 +102,32 @@ export class Player {
         this.discardPool.deleteCardFromList(card);
     }
 
+    /**
+     * 检查是否能碰
+     */ 
+    abstract checkPeng(target:MjCard);
+
+    /**
+     * 检查是否能明杠
+     */ 
+
+    abstract checkMingGang(target:MjCard);
+
+    /**
+     * 检查是否能暗杠
+     */ 
+
+     abstract checkAnGang(target:MjCard);
+
+    /**
+     * 检查是否可以补杠
+     */  
+
+    abstract checkBuGang(target:MjCard);
+
+    /**
+     * 检查是否胡牌
+     */ 
+
+    abstract checkHu(target:MjCard);
 }
