@@ -4,8 +4,13 @@
   "description": "- court 判断模块存放位置 - enums 服务中涉及到的枚举体 - interface 接口存放地址 - modules      - MjCard 麻将牌相关模块存放地点     - player.ts 游戏玩家模块（重要）",
   "main": "index.js",
   "dependencies": {
+    "@types/koa": "^2.0.39",
+    "@types/koa-router": "^7.0.23",
     "@types/log4js": "^2.3.5",
     "@types/ws": "^3.2.0",
+    "koa": "^2.3.0",
+    "koa-body": "^2.5.0",
+    "koa-router": "^7.2.1",
     "log4js": "^2.3.10",
     "ws": "^3.2.0"
   },

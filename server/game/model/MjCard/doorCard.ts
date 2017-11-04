@@ -1,4 +1,4 @@
-import { Action } from '../../common/enums/action.enum';
+import { Action } from '../../../../common/enums/action.enum';
 import { MjGroup } from './mjGroup';
 import { MjCard } from './mjCard';
 import { CardListControl } from './cardListControl';
@@ -25,5 +25,9 @@ export class DoorCard {
                 group.changeBuGang();
             }
         })
+    }
+
+    getObj(){
+        return this._cardlist;
     }
 }

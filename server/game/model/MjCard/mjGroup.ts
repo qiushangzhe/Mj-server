@@ -1,6 +1,5 @@
-import { Action } from '../../common/enums/action.enum';
-import { MjCard } from '../../server/game/model/MjCard/mjCard';
-
+import { Action } from '../../../../common/enums/action.enum';
+import { MjCard } from './mjCard';
 
 // 一组牌 可能是碰 杠 吃 
 export class MjGroup{
