@@ -17,11 +17,11 @@ export interface PengResult{
 export interface GangResult{
     result : boolean;
     // 杠哪张牌
-    card : MjCard;
+    card ?: MjCard;
     // 杠谁的牌
-    targetPlayer:SPlayer;
+    targetPlayer?:SPlayer;
     // 杠的类型 
-    type : GangType;
+    type ?: GangType;
 }
 
 export interface HuResult{

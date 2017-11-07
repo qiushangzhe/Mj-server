@@ -1,3 +1,8 @@
+import { QLOG,logconfig } from './../tools/log.tool';
+import * as log from 'log4js';
+const debug_log = log.getLogger('checkHu');
+const log_level = 'error';// 如果是debug 就输出。
+
 // -----------普通能组成顺子的牌--------------
 // 检查一坎
 function checkOneKan(cardList, begin, end) {
@@ -77,12 +82,12 @@ function doCheck(cardlist){
     }
 
     buffer = checkThreeKan(buffer,27,34);
-    console.log('-------------------result--------------');
-    console.log(buffer);
-    console.log('-------------------result end--------------');
+    debug_log.debug('-------------------result--------------');
+    debug_log.debug(JSON.stringify(buffer));
+    debug_log.debug('-------------------result end--------------');
     for(let card of buffer){
-        if(card != 0 && card != undefined){
-            console.log(card);
+        if(card != 0 && card != undefined && card != null){
+            // console.log(card);
             return false;
         }
     }
@@ -95,6 +100,8 @@ function doCheck(cardlist){
  * @param cardlist 当前手牌信息，必须是3n+2张牌。然后是数组类型的
  */ 
 export function checkHu(cardlist){
+    debug_log.level = log_level;
+    debug_log.debug(`当前输入牌为${JSON.stringify(cardlist)}`);
     // console.log(cardlist);
     // 选将
     for(let index in cardlist){

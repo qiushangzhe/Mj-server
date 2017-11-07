@@ -14,22 +14,24 @@ export class SPlayer extends Player {
 
     checkPeng(target: MjCard):PengResult {
         const peng_result = checkPeng(this.handCards,target);
-        let param:PengResult;
+        let param:PengResult = {result:false};
         param.result = peng_result;
         return param;
     }
     checkMingGang(target: MjCard):GangResult {
-        let param:GangResult;
-        param.result = false;
+        let param:GangResult= {result:false};
         return param;
     }
     checkAnGang(target: MjCard) {
-        return null;
+        let param:GangResult= {result:false};
+        return param;
     }
     checkBuGang(target: MjCard) {
-        return null;
+        let param:GangResult= {result:false};
+        return param;
     }
     checkHu(target: MjCard):HuResult {
-        return this.ai.checkCanHu(this.handCards,target);
+        const result = this.ai.checkCanHu(this.handCards,target);
+        return result;
     }
 }

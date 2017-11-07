@@ -1,4 +1,4 @@
-import { MessageTypeReq, MessageTypeAck } from '../../../common/enums/message.enum';
+import { MessageTypeAck, MessageTypeError, MessageTypeReq } from '../../../common/enums/message.enum';
 import * as ws from 'ws';
 
 export interface SocketPlayer{
@@ -135,6 +135,13 @@ export class SocketPlayerManage {
         this.sendMessage(id,{
             type : MessageTypeAck.ACK_DOACTION,
             data : action 
+        });
+    }
+
+    // 告知当前玩家操作无效
+    ackPlayerDisCardError(id){
+        this.sendMessage(id,{
+            type : MessageTypeError.ERROR_DISCARD
         });
     }
 }

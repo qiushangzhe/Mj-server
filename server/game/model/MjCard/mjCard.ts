@@ -8,6 +8,7 @@ import { CardType } from '../../../../common/enums/card.enum';
 */
 
 export class MjCard {
+    _index:number ;
     // 麻将牌花色类型
     _type: CardType = null;
     // 麻将牌点数
@@ -18,6 +19,7 @@ export class MjCard {
         this._type = obj.type;
         this._point = obj.point;
         this._state = state || null;
+        this._index = this.getCardIndex();
     }
 
     getCardObj(){

@@ -22,4 +22,5 @@ export enum MessageTypeAck {
 export enum MessageTypeError {
     ERROR_KICKING = 4000,// 重复登录
     ERROR_POSITION , // 当前不是你应该操作的时候
+    ERROR_DISCARD, // 手牌中不存在打出的牌
 }

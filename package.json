@@ -8,6 +8,7 @@
     "@types/koa-router": "^7.0.23",
     "@types/log4js": "^2.3.5",
     "@types/ws": "^3.2.0",
+    "chalk": "^2.3.0",
     "koa": "^2.3.0",
     "koa-body": "^2.5.0",
     "koa-router": "^7.2.1",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "q":"clear && ts-node app.ts",
     "dev": "node ./Dist/net/GameServe.js",
     "build": "tsc"
   },

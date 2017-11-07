@@ -1,9 +1,11 @@
 import { SPlayer } from './../model/smartPlayer';
 import { GameEvent } from '../../../common/interfaces/event.interface';
 import { GameModel } from './../model/game.model';
+import * as log from 'log4js';
 export class GameLogic{
     gamemodel:GameModel;
     resultList = [];
+    logger = log.getLogger('game_logic');
     constructor(_gamemodel){
         this.gamemodel = _gamemodel;
     }
@@ -33,29 +35,43 @@ export class GameLogic{
                 }
             });   
         }
+        this.logger.debug(`打牌后判断结果`);
+        if(this.resultList.length === 0){
+            this.logger.debug(`没有任何人可以碰杠胡`);
+        }else{
+            this.resultList.forEach((obj)=>{
+                this.logger.debug(`${obj.player.getPlayerId()}号玩家=>${JSON.stringify(obj.action)}`);
+            })
+        }
         return this.resultList;
     }
 
     checkAfterDraw(player:SPlayer,card){
+        
         let hu = player.checkHu(card);
         let angang = player.checkAnGang(card);
         let bugang = player.checkBuGang(card);
         let gang = [];
-        angang!==null && gang.push(angang);
-        bugang!==null && gang.push(bugang);
-        
-        if(hu === null && gang.length ==0){
-            return null;
+        angang.result && gang.push(angang);
+        bugang.result && gang.push(bugang);
+        let result;
+        if(!hu.result && gang.length ==0){
+            result = null;
         }else{
             let action = {};
             hu !== null && function(){action['hu']=hu};
             gang.length !==0 && function(){action['gang']=gang};
-            return {
-                player : player ,
+            result = {
+                player : player,
                 action : gang
             }
         }
-        
+
+        this.logger.trace(`抓拍后判断结果为:`);
+        result == null ? 
+            this.logger.trace(`不能进行杠牌/和牌`):
+            this.logger.trace(`玩家${result.player.getPlayerId()}=>${JSON.stringify(result.action)}`);
+        return result;
     }
 
 

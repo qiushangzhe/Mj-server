@@ -1,6 +1,6 @@
 // 麻将牌类型的枚举体
 export enum CardType {
-    WAN = 1,// 万
+    WAN = 0,// 万
     TIAO, // 条
     BING, // 饼
     FENG, // 风

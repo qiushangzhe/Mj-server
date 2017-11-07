@@ -6,7 +6,8 @@ import { DoorCard } from './MjCard/doorCard';
 import { DiscardPool } from './MjCard/discardPool';
 import { CardState } from '../../../common/enums/card.enum';
 import { Action } from '../../../common/enums/action.enum';
-
+import { outputList } from '../../../common/tools/translate';
+import * as log from 'log4js';
 /*
     麻将玩家的抽象对象
 */
@@ -19,13 +20,13 @@ export abstract class Player {
     discardPool: DiscardPool = null;
     // 玩家的一些基本信息
     baseData: PlayerInfoInterface = null;
-    // 玩家的ws对象
-    ws = null;
+    logger ;
     // 构造函数
     constructor(info: PlayerInfoInterface) {
         this.baseData = info;
         this.doorCard = new DoorCard([]);
         this.discardPool = new DiscardPool([]);
+        this.logger = log.getLogger('player_data');
     }
 
     getBaseData(){
@@ -87,34 +88,41 @@ export abstract class Player {
     Action_Peng(card: MjCard) {
         this.handCards.deleteCardFromList(card, 2);
         this.doorCard.addDoor(new MjGroup().createPeng(card));
+        this.logger.info(`玩家${this.baseData.userid}手牌${outputList(this.handCards.getCardList())}`);
     }
 
     // c.明杠 
     Action_GangMing(card: MjCard) {
         this.handCards.deleteCardFromList(card, 3);
         this.doorCard.addDoor(new MjGroup().createGang(card, Action.GANG_MING));
+        this.logger.info(`玩家${this.baseData.userid}手牌${outputList(this.handCards.getCardList())}`);
     }
 
     // d.暗杠
     Action_GangAn(card: MjCard) {
         this.handCards.deleteCardFromList(card, 3);
         this.doorCard.addDoor(new MjGroup().createGang(card, Action.GANG_AN));
+        this.logger.info(`玩家${this.baseData.userid}手牌${outputList(this.handCards.getCardList())}`);
     }
 
     // e.补杠
     Action_GangBu(card: MjCard) {
         this.handCards.deleteCardFromList(card);
         this.doorCard.ChangeBuGang(card);
+        this.logger.info(`玩家${this.baseData.userid}手牌${outputList(this.handCards.getCardList())}`);
     }
 
     // f. 打牌
     Action_DisCard(card: MjCard){
-        return this.handCards.deleteCardFromList(card);
+        const buffer = this.handCards.deleteCardFromList(card);
+        this.logger.info(`玩家${this.baseData.userid}手牌${outputList(this.handCards.getCardList())}`);
+        return buffer;
     }
 
     // 抓
     Action_DrawCard(card:MjCard){
         this.handCards.addCardToList(card);
+        this.logger.info(`玩家${this.baseData.userid}手牌${outputList(this.handCards.getCardList())}`);
     }
     // --------------被动变换操作-------------
     // a.被吃牌

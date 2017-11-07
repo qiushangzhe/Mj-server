@@ -37,6 +37,7 @@ export function outputList (cardlist){
 }
 
 export function data2Ai(card:MjCard){
+    card._point = Number(card._point);
     if(card._type == CardType.WAN){
         return card._point;
     }else if(card._type == CardType.TIAO){
@@ -56,7 +57,11 @@ export function data2Ai(card:MjCard){
 export function dataList2AiList(list){
     let buffer = [];
     for(let item of list){
-        buffer.push(data2Ai(item));
+        if(buffer[data2Ai(item)] == undefined){
+            buffer[data2Ai(item)] = 1;
+        }else{
+            buffer[data2Ai(item)]++;
+        }
     }
     return buffer;
 }
