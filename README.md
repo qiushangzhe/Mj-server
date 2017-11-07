@@ -1,15 +1,21 @@
 # 麻将服务
 ## 文件夹目录结构介绍
-- court 判断模块存放位置
-- enums 服务中涉及到的枚举体
-- interface 接口存放地址
-- modules 
-    - MjCard 麻将牌相关模块存放地点
-    - player.ts 游戏玩家模块（重要）
+- common 
+    - ai 算法相关
+    - enum
+    - interfaces
+    - tools 工具类
+- logs 日志
+- server
+    - game
+        - flow 游戏流程控制
+        - logic 游戏逻辑层
+        - model 游戏数据层
+        - socket 游戏网络层
 
 
 ## 端口说明
-- 9000 大厅服务器。
-- 9001 游戏管理服务器
-- 10000到50000 游戏服务器
+- 9000 --- 50000 游戏服务器。
+- 8999 游戏管理服务器
+- 待补充
  
