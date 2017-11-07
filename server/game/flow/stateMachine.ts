@@ -1,3 +1,4 @@
+import { QLOG } from './../../../common/tools/log.tool';
 import { GameEvent } from './../../../common/interfaces/event.interface';
 import { MainStage } from '../../../common/enums/stage.enum';
 
@@ -14,7 +15,8 @@ let stateChnChar = [
 ];
 
 export abstract class StateMachine {
-    nowStage: MainStage = MainStage.STAGE_READY;;
+    nowStage: MainStage = MainStage.STAGE_READY;
+    // log:QLOG = new QLOG('GameFlow');
     constructor() {
         
         

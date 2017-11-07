@@ -73,7 +73,7 @@ export class MjWall {
 
     // 添加牌 1. 类型 2. 一共多少张 3.每种几张
     addCard(type:any, total:any, time:any) {
-        for (let card = 1; card <= total; card++) {
+        for (let card = 0; card < total; card++) {
             for (let i = 0; i < time; i++) {
                 let mjcard = new MjCard({
                     type: type,
@@ -125,14 +125,14 @@ export class MjWall {
     }
 }
 // --------------  debug ------------
-const a = new MjWall({
-    hasWan : true,
-    hasTiao : true,
-    hasBing : true,
-    hasFeng : true,
-    hasJian : true,
-    hasHua : true
-});
+// const a = new MjWall({
+//     hasWan : true,
+//     hasTiao : true,
+//     hasBing : true,
+//     hasFeng : true,
+//     hasJian : true,
+//     hasHua : true
+// });
 
 // a.initWall();
 // let b = a.getCardWall();

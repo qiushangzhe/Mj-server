@@ -1,5 +1,5 @@
+import { MjCard } from './../../server/game/model/MjCard/mjCard';
 import { SPlayer } from './../../server/game/model/smartPlayer';
-import { MjCard } from './../../modules/MjCard/mjCard';
 
 import { MainStage } from '../enums/stage.enum';
 export interface GameEvent{

@@ -1,3 +1,4 @@
+import { data2Ai } from './../../../../common/tools/translate';
 import { CardInterface, CardStateInterface } from '../../../../common/interfaces/card.interface';
 import { CardType } from '../../../../common/enums/card.enum';
 /*
@@ -10,7 +11,7 @@ export class MjCard {
     // 麻将牌花色类型
     _type: CardType = null;
     // 麻将牌点数
-    _point: Number = null;
+    _point: number = null;
     // 当前牌的状态
     _state:CardStateInterface = null;
     constructor(obj:CardInterface,state?:CardStateInterface){
@@ -52,5 +53,9 @@ export class MjCard {
         // console.log('比对结果',(this._type == otherCard._type && this._point == otherCard._point));
         // console.log('------------比对结束-----------');
         return (this._type == otherCard._type && this._point == otherCard._point);
+    }
+    
+    getCardIndex(){
+        return data2Ai(this);
     }
 }

@@ -1,3 +1,5 @@
+import { checkPeng } from './../../../common/ai/pengGangChecker';
+import { HuResult, PengResult, GangResult } from './../../../common/interfaces/result.interface';
 import { PlayerInfoInterface } from '../../../common/interfaces/playerInfo.interface';
 import { PlayerAi } from './../logic/player.logic';
 import { MjCard } from './MjCard/mjCard';
@@ -10,15 +12,16 @@ export class SPlayer extends Player {
         this.ai = new PlayerAi();
     }
 
-    checkPeng(target: MjCard) {
-        const result = this.ai.checkPengGang(this.handCards,target);
-        if(result >= 2) return true;
-        return null;
+    checkPeng(target: MjCard):PengResult {
+        const peng_result = checkPeng(this.handCards,target);
+        let param:PengResult;
+        param.result = peng_result;
+        return param;
     }
-    checkMingGang(target: MjCard) {
-        const result = this.ai.checkPengGang(this.handCards,target);
-        if(result == 3) return true;
-        return null;
+    checkMingGang(target: MjCard):GangResult {
+        let param:GangResult;
+        param.result = false;
+        return param;
     }
     checkAnGang(target: MjCard) {
         return null;
@@ -26,7 +29,7 @@ export class SPlayer extends Player {
     checkBuGang(target: MjCard) {
         return null;
     }
-    checkHu(target: MjCard) {
-        return null;
+    checkHu(target: MjCard):HuResult {
+        return this.ai.checkCanHu(this.handCards,target);
     }
 }

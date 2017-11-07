@@ -3,12 +3,12 @@ import { CardType,CardState } from '../enums/card.enum';
 import { Position } from '../enums/player.enum';
 export interface CardInterface {
     type : CardType;
-    point : Number;
+    point : number;
 }
 
 export interface CardStateInterface{
     state : CardState;
-    from : Position ;
+    from : Position;
 }
 
 // 是否有 万 条 饼 风 箭 花 牌

@@ -18,11 +18,10 @@ export class GameLogic{
             if(seat.player.getPlayerId() == player.getPlayerId()){
                 continue;
             }
-            
             let hu = seat.player.checkHu(discard);
             let gang = seat.player.checkMingGang(discard);
             let peng = seat.player.checkPeng(discard);
-            if(hu === null && gang === null && peng === null){
+            if(!hu.result && !gang.result && !peng.result){
                 continue;
             }
             this.resultList.push({

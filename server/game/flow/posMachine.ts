@@ -12,6 +12,6 @@ export class PosMachine{
         if(this.nowPos > this.nowPlayerNum){
             this.nowPos = Position.DONG
         }
-        console.log('换',this.nowPos);
+        // console.log('换',this.nowPos);
     }
 }
