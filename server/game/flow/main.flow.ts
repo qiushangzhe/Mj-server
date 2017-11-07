@@ -2,13 +2,13 @@ import { GameLogic } from './../logic/game.logic';
 import { CardState } from '../../../common/enums/card.enum';
 import { PlayerInfoInterface } from '../../../common/interfaces/playerInfo.interface';
 import { MainStage } from '../../../common/enums/stage.enum';
-import { MjCard } from '../../../modules/MjCard/mjCard';
 import { SPlayer } from './../model/smartPlayer';
 import { GameModel } from './../model/game.model';
 import { SocketPlayer,SocketPlayerManage } from '../socket/player.socket';
 import { PosMachine } from './posMachine';
 import { GameEvent } from './../../../common/interfaces/event.interface';
 import { StateMachine } from './stateMachine';
+import { MjCard } from '../model/MjCard/mjCard';
 
 export class MainFlow extends StateMachine{
     posTools:PosMachine = null;

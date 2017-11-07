@@ -1,4 +1,4 @@
-import { MjCard } from '../../../modules/MjCard/mjCard';
+import { MjCard } from '../model/MjCard/mjCard';
 import { SPlayer } from './smartPlayer';
 import { PlayerInfoInterface } from '../../../common/interfaces/playerInfo.interface';
 
