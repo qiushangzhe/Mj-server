@@ -1,4 +1,4 @@
-import { SPlayer } from '../../modules/smartPlayer';
+import { SPlayer } from '../../server/game/model/smartPlayer'
 import { MjCard } from '../../server/game/model/MjCard/mjCard';
 export enum GangType {
     GANG_BU = 0,
@@ -7,12 +7,15 @@ export enum GangType {
 }
 export interface PengResult{
     // 碰哪张牌
-    card : MjCard;
+    card?: MjCard;
     // 碰谁的牌
-    targetPlayer : SPlayer;
+    targetPlayer?: SPlayer;
+    // 是否可以碰
+    result : boolean;
 }
 
 export interface GangResult{
+    result : boolean;
     // 杠哪张牌
     card : MjCard;
     // 杠谁的牌
@@ -23,13 +26,15 @@ export interface GangResult{
 
 export interface HuResult{
     // 胡那张牌
-    card : MjCard;
+    card?: MjCard;
     // 谁的牌
-    targetPlayer:SPlayer;
+    targetPlayer?:SPlayer;
     // 是不是自摸
-    isZiMo : boolean;
+    isZiMo?: boolean;
     // 胡的番种
-    huType : Array<string>;
+    huType?: Array<string>;
     // 胡多少分
-    huScore : number;
+    huScore?: number;
+    // 是否可以胡牌
+    result : boolean;
 }

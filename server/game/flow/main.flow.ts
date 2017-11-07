@@ -1,3 +1,4 @@
+import { QLOG } from './../../../common/tools/log.tool';
 import { GameLogic } from './../logic/game.logic';
 import { CardState } from '../../../common/enums/card.enum';
 import { PlayerInfoInterface } from '../../../common/interfaces/playerInfo.interface';
@@ -9,6 +10,7 @@ import { PosMachine } from './posMachine';
 import { GameEvent } from './../../../common/interfaces/event.interface';
 import { StateMachine } from './stateMachine';
 import { MjCard } from '../model/MjCard/mjCard';
+import { output } from '../../../common/tools/translate';
 
 export class MainFlow extends StateMachine{
     posTools:PosMachine = null;
@@ -20,6 +22,7 @@ export class MainFlow extends StateMachine{
     gameModel:GameModel = null;
     // logic
     gamelogic:GameLogic = null;
+    log:QLOG = new QLOG('GameFlow');
     constructor(psm){
         super();
         this.psManage = psm;
@@ -44,6 +47,8 @@ export class MainFlow extends StateMachine{
                 return;
             }
         }
+        
+        this.log.traceLog(`玩家id为${userid}的玩家 准备了游戏`);
         this.readyPlayer.push(userid);
         this.readyNumber++;
         this.gameModel.addPlayer({
@@ -54,6 +59,7 @@ export class MainFlow extends StateMachine{
         this.psManage.loginSuccess(userid);
         if(this.readyNumber === 4){
             this.changeToStartGame();
+            this.log.traceLog(`4名玩家全部准备游戏，游戏开始。`);
         }
     }
 
@@ -70,7 +76,8 @@ export class MainFlow extends StateMachine{
         const player:SPlayer = this.gameModel.getPlayerById(userid);
         player.Action_DisCard(card);
         card._state.from = player.baseData.position;
-        card._state.state = CardState.DIS
+        card._state.state = CardState.DIS;
+        this.log.traceLog(`id为${userid}的玩家打出了一张${output(card)}`);
         // 广播
         this.psManage.broadcastPlayerDisCard(player.getBaseData(),card);
         // 切换状态
@@ -102,6 +109,7 @@ export class MainFlow extends StateMachine{
         throw new Error("Method not implemented.");
     }
     StateDealCallBack() {
+        this.log.traceLog(`------当前进入发牌流程-----`);
         // 发牌
         this.gameModel.dealCard();
         // 告诉每个人自己的手牌
@@ -122,6 +130,7 @@ export class MainFlow extends StateMachine{
         this.changeToDeal();
     }
     StateDisCardCallBack(event: GameEvent) {
+        this.log.traceLog(`------当前进入打牌阶段-----`);
         const pos = this.posTools.nowPos;
         // console.log(pos);
         const player:SPlayer = this.gameModel.getPlayerByPos(pos);
