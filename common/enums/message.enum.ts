@@ -4,8 +4,11 @@ export enum MessageTypeReq {
     REQ_RECONNECT,
     REQ_GAMESTART = 1000,
     REQ_DISCARD,
-    
-
+    REQ_PENGCARD,
+    REQ_ANGANG,
+    REQ_MINGGANG,
+    REQ_BUGANG,
+    REQ_HU
 };
 
 // 服务器告知客户端
@@ -17,6 +20,11 @@ export enum MessageTypeAck {
     ACK_DISCARD,// 请打牌
     ACK_DOACTION,// 告知接下来可以做的操作 碰杠胡
     ACK_DRAWCARD,// 有人抓拍了
+    ACK_PENGCARD,// 碰
+    ACK_ANGANG,// 暗杠
+    ACK_MINGGANG,// 明杠
+    ACK_BUGANG,// 补杠
+    ACK_HU,// 和牌
 }
 
 export enum MessageTypeError {

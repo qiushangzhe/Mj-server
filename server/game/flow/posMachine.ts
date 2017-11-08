@@ -14,4 +14,8 @@ export class PosMachine{
         }
         // console.log('换',this.nowPos);
     }
+
+    specialChange(pos){
+        this.nowPos = pos;
+    }
 }

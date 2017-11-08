@@ -27,13 +27,13 @@ export class GameLogic {
             if (!hu.result && !gang.result && !peng.result) {
                 continue;
             }
+            let action = {};
+            hu.result && (action['hu']=hu);
+            gang.result && (action['gang']=gang);
+            peng.result && (action['peng']=peng);
             resultList.push({
                 player: seat.player,
-                action: {
-                    hu: hu,
-                    gang: gang,
-                    peng: peng
-                }
+                action: action
             });
         }
         this.logger.debug(`打牌后判断结果`);
@@ -48,10 +48,14 @@ export class GameLogic {
     }
 
     checkAfterDraw(player: SPlayer, card) {
+        this.logger.trace(`检测抓拍后碰杠胡开始`);
         let hu = player.checkHu(card);
         let angang = player.checkAnGang(card);
         let bugang = player.checkBuGang(card);
         let gang = [];
+        this.logger.trace(`胡信息${JSON.stringify(hu)}`);
+        this.logger.trace(`补杠信息${JSON.stringify(bugang)}`);
+        this.logger.trace(`暗杠信息${JSON.stringify(angang)}`);
         angang.result && gang.push(angang);
         bugang.result && gang.push(bugang);
         let result;
@@ -60,7 +64,7 @@ export class GameLogic {
         } else {
             let action = {};
             hu !== null && function () { action['hu'] = hu };
-            gang.length !== 0 && function () { action['gang'] = gang };
+            gang.length !== 0 && function () { action['gang'] = gang }();
             result = {
                 player: player,
                 action: action

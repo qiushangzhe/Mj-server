@@ -1,3 +1,4 @@
+import { SPlayer } from '../model/smartPlayer';
 import { MessageTypeAck, MessageTypeError, MessageTypeReq } from '../../../common/enums/message.enum';
 import * as ws from 'ws';
 
@@ -137,11 +138,29 @@ export class SocketPlayerManage {
             data : action 
         });
     }
+    
+    // 轮次错误
+    ackPositionErr(id){
+        this.sendMessage(id,{
+            type : MessageTypeError.ERROR_POSITION
+        })
+    }
 
     // 告知当前玩家操作无效
     ackPlayerDisCardError(id){
         this.sendMessage(id,{
             type : MessageTypeError.ERROR_DISCARD
         });
+    }
+
+    // 广播玩家 碰牌
+    broadcastPlayerPengCard(player:SPlayer,card){
+        this.broadcast({
+            type : MessageTypeAck.ACK_PENGCARD,
+            data : {
+                who : player.getBaseData(),
+                card : card
+            }
+        })
     }
 }

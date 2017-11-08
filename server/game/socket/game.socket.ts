@@ -54,6 +54,7 @@ export class GameSocket {
         this.registEvent(900, this.Event_LoginGameServer.bind(this), '登陆服务器');
         this.registEvent(1000, this.Event_ReadyGame.bind(this), '准备游戏');
         this.registEvent(1001, this.Event_DisCard.bind(this), '有人打牌');
+        this.registEvent(1002,this.Event_PengCard.bind(this),'有人碰牌');
     }
 
     /**
@@ -116,5 +117,14 @@ export class GameSocket {
         let result = GameMainValidation.checkMsg_Discard(msg);
         if (!result) return;
         this.flow.playerDisCard(socket.userid, msg);
+    }
+
+    /**
+     * 有玩家碰牌了
+     */ 
+    Event_PengCard( msg , socket ){
+        let result = GameMainValidation.checkMsg_PengCard(msg);
+        if(!result) return;
+        this.flow.playerPengCard(socket.userid,msg);
     }
 }

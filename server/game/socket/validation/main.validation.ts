@@ -34,4 +34,8 @@ export class GameMainValidation{
     static checkMsg_Discard(msg){
         return true;
     }
+
+    static checkMsg_PengCard(msg){
+        return true;
+    }
 }

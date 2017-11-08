@@ -16,6 +16,7 @@ export class SPlayer extends Player {
         const peng_result = this.ai.checkCanPeng(this.handCards,target);
         let param:PengResult = {result:false,level:Action.PENG};
         param.result = peng_result;
+        param.card = target;
         return param;
     }
 
@@ -23,6 +24,7 @@ export class SPlayer extends Player {
         let param:GangResult= {result:false,level:Action.GANG_MING};
         const gang_result = this.ai.checkCanMingGang(this.handCards,target);
         param.result = gang_result;
+        param.card = target;
         return param;
     }
 
@@ -30,6 +32,7 @@ export class SPlayer extends Player {
         let param:GangResult= {result:false,level:Action.GANG_AN};
         const gang_result = this.ai.checkCanAnGang(this.handCards,target);
         param.result = gang_result;
+        param.card = target;
         return param;
     }
 
@@ -37,6 +40,7 @@ export class SPlayer extends Player {
         let param:GangResult= {result:false,level:Action.GANG_BU};
         const gang_result = this.ai.checkCanBuGang(this.doorCard,target);
         param.result = gang_result;
+        param.card = target;
         return param;
     }
 

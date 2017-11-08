@@ -1,14 +1,15 @@
 import { MjCard } from '../../game/model/MjCard/mjCard';
 import { SPlayer } from './smartPlayer';
 import { PlayerInfoInterface } from '../../../common/interfaces/playerInfo.interface';
-
+import * as log from 'log4js';
 import { MjDesk } from './MjDesk';
 export class GameModel{
     desk:MjDesk = null;
-
+    logger;
     constructor(){
         this.desk = new MjDesk();
         this.initGamemodel();
+        this.logger = log.getLogger('game_model');
     }
 
     initGamemodel(){
@@ -38,6 +39,7 @@ export class GameModel{
         return card;
     }
 
+    // 通过id获取玩家对象
     getPlayerById(id){
         return this.desk.getPlayerInfo(id);
     }
@@ -71,8 +73,17 @@ export class GameModel{
         return data;
     }
 
-
+    // 通过pos获取玩家
     getPlayerByPos(pos){
         return this.desk.getPlayerByPos(pos);
+    }
+
+    // 玩家碰
+    playerPeng(id,card:MjCard){
+        const player = this.getPlayerById(id);
+        if(player === null) this.logger.error(`输入的${id}，没有找到这个玩家`);
+        player.Action_Peng(card);
+        const Be_player = this.getPlayerByPos(card._state.from);
+        Be_player.BeAction_Peng(card);
     }
 }

@@ -72,6 +72,11 @@ export class MainFlow extends StateMachine{
      */ 
     playerDisCard(userid,msg){
         const player:SPlayer = this.gameModel.getPlayerById(userid);
+        if(this.posTools.nowPos != player.getBaseData().position) {
+            this.psManage.ackPlayerDisCardError(userid);
+            this.logger.error(`手牌玩家${userid}的打牌消息，他的座位号是${player.getBaseData().position}当前轮次为${this.posTools.nowPos},`);
+            return ;
+        }
         const card = new MjCard({
             type:msg.type,
             point:msg.point
@@ -96,6 +101,21 @@ export class MainFlow extends StateMachine{
                 targetCard : card
             });
         }
+    }
+
+    /**
+     * 有人碰
+     */ 
+    playerPengCard(userid,msg){
+        const result = this.gamelogic.checkWeight(userid,1);
+        if(result === null) return;
+        this.gameModel.playerPeng(userid,result.action.peng.card);
+        this.psManage.broadcastPlayerPengCard(this.gameModel.getPlayerById(userid),result.action.peng.card);
+        this.posTools.specialChange(this.gameModel.getPlayerById(userid).getBaseData().position);
+        this.changeToDisCard({
+            beforeState : MainStage.STAGE_WAITING,
+            targetCard : result.action.peng.card
+        });
     }
 
     /**
@@ -152,18 +172,22 @@ export class MainFlow extends StateMachine{
     StateAfterDisCardCallBack(event: GameEvent) {
         // 打牌后的判断
         const result = this.gamelogic.checkAfterDis(event);
+        this.gamelogic.cleanResponse();
         // 谁都不能碰杠胡牌
         if(result.length === 0){
             this.posTools.normalChange();
             this.changeToDrawCard();
         }else{
+            this.gamelogic.registeResponseAction(result);
             // 给能碰杠胡的人发消息
             for(let item of result){
+                this.logger.trace(`向玩家${item.player.getPlayerId()}发送请求碰杠胡的消息，等待响应ing....`);
                 this.psManage.ackPlayerNextAction(item.player.getPlayerId(),item.action);
             }
         }
     }
     StateDrawCardCallBack() {
+       
         this.logger.trace(`切换到====>>>抓拍阶段`);
         // 抓牌
         const pos = this.posTools.nowPos;
@@ -180,11 +204,14 @@ export class MainFlow extends StateMachine{
     }
     StateAfterDrawCardCallBack(event) {
         this.logger.trace(`切换到====>>>抓拍后分析阶段`);
+        
         const player:SPlayer = event.who;
         const targetCard = event.targetCard;
         const result = this.gamelogic.checkAfterDraw(player,targetCard);
+        this.gamelogic.cleanResponse();
         if(result !== null){
             // 告知玩家当前可以进行的操作
+            this.gamelogic.registeResponseAction(result);
             this.psManage.ackPlayerNextAction(player.getPlayerId(),result.action);
             this.changeToWaite({
                 who : player,

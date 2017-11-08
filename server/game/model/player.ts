@@ -86,28 +86,32 @@ export abstract class Player {
 
     // b.碰牌
     Action_Peng(card: MjCard) {
-        this.handCards.deleteCardFromList(card, 2);
+        const result = this.handCards.deleteCardFromList(card, 2);
+        if(!result) this.logger.error(`玩家碰牌操作失败，输入参数${JSON.stringify(card)},玩家手牌${JSON.stringify(this.handCards)}`);
         this.doorCard.addDoor(new MjGroup().createPeng(card));
         this.logger.info(`玩家${this.baseData.userid}手牌${outputList(this.handCards.getCardList())}`);
     }
 
     // c.明杠 
     Action_GangMing(card: MjCard) {
-        this.handCards.deleteCardFromList(card, 3);
+        const result = this.handCards.deleteCardFromList(card, 3);
+        if(!result) this.logger.error(`玩家明杠操作失败，输入参数${JSON.stringify(card)},玩家手牌${JSON.stringify(this.handCards)}`);
         this.doorCard.addDoor(new MjGroup().createGang(card, Action.GANG_MING));
         this.logger.info(`玩家${this.baseData.userid}手牌${outputList(this.handCards.getCardList())}`);
     }
 
     // d.暗杠
     Action_GangAn(card: MjCard) {
-        this.handCards.deleteCardFromList(card, 3);
+        const result = this.handCards.deleteCardFromList(card, 3);
+        if(!result) this.logger.error(`玩家明杠操作失败，输入参数${JSON.stringify(card)},玩家手牌${JSON.stringify(this.handCards)}`);
         this.doorCard.addDoor(new MjGroup().createGang(card, Action.GANG_AN));
         this.logger.info(`玩家${this.baseData.userid}手牌${outputList(this.handCards.getCardList())}`);
     }
 
     // e.补杠
     Action_GangBu(card: MjCard) {
-        this.handCards.deleteCardFromList(card);
+        const result = this.handCards.deleteCardFromList(card);
+        if(!result) this.logger.error(`玩家明杠操作失败，输入参数${JSON.stringify(card)},玩家开门牌${JSON.stringify(this.doorCard)}`);
         this.doorCard.ChangeBuGang(card);
         this.logger.info(`玩家${this.baseData.userid}手牌${outputList(this.handCards.getCardList())}`);
     }
@@ -115,6 +119,7 @@ export abstract class Player {
     // f. 打牌
     Action_DisCard(card: MjCard){
         const buffer = this.handCards.deleteCardFromList(card);
+        this.discardPool.addCardToList(card);
         this.logger.info(`玩家${this.baseData.userid}手牌${outputList(this.handCards.getCardList())}`);
         return buffer;
     }
