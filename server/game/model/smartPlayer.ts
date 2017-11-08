@@ -1,4 +1,3 @@
-import { checkPeng } from './../../../common/ai/pengGangChecker';
 import { HuResult, PengResult, GangResult } from './../../../common/interfaces/result.interface';
 import { PlayerInfoInterface } from '../../../common/interfaces/playerInfo.interface';
 import { PlayerAi } from './../logic/player.logic';
@@ -13,13 +12,15 @@ export class SPlayer extends Player {
     }
 
     checkPeng(target: MjCard):PengResult {
-        const peng_result = checkPeng(this.handCards,target);
+        const peng_result = this.ai.checkCanPeng(this.handCards,target);
         let param:PengResult = {result:false};
         param.result = peng_result;
         return param;
     }
     checkMingGang(target: MjCard):GangResult {
         let param:GangResult= {result:false};
+        const gang_result = this.ai.checkPeng(this.handCards,target);
+        param.result = gang_result;
         return param;
     }
     checkAnGang(target: MjCard) {

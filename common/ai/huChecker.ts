@@ -99,7 +99,7 @@ function doCheck(cardlist){
  * 检查是否可以胡牌
  * @param cardlist 当前手牌信息，必须是3n+2张牌。然后是数组类型的
  */ 
-export function checkHu(cardlist){
+export function HuChecker(cardlist){
     debug_log.level = log_level;
     debug_log.debug(`当前输入牌为${JSON.stringify(cardlist)}`);
     // console.log(cardlist);
