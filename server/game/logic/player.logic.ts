@@ -5,6 +5,7 @@ import { HuChecker } from './../../../common/ai/huChecker';
 import { dataList2AiList } from './../../../common/tools/translate';
 import { HuResult } from './../../../common/interfaces/result.interface';
 import { HandCard } from './../model/MjCard/handCard';
+import { Action } from '../../../common/enums/action.enum';
 import * as log from 'log4js';
 import * as PGchecker from './../../../common/ai/pengGangChecker';
 export class PlayerAi{
@@ -36,7 +37,7 @@ export class PlayerAi{
         cards.push(target);
         let ai_cards = dataList2AiList(cards);
         let result = HuChecker(ai_cards);
-        const data = {result:result}
+        const data = {result:result,level:Action.HU}
         if(result){
             // 增加算番器还有胡牌信息
         }

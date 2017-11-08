@@ -3,7 +3,7 @@ import { PlayerInfoInterface } from '../../../common/interfaces/playerInfo.inter
 import { PlayerAi } from './../logic/player.logic';
 import { MjCard } from './MjCard/mjCard';
 import { Player } from './player';
-
+import { Action } from '../../../common/enums/action.enum';
 export class SPlayer extends Player {
     ai : PlayerAi = null;
     
@@ -14,27 +14,27 @@ export class SPlayer extends Player {
 
     checkPeng(target: MjCard):PengResult {
         const peng_result = this.ai.checkCanPeng(this.handCards,target);
-        let param:PengResult = {result:false};
+        let param:PengResult = {result:false,level:Action.PENG};
         param.result = peng_result;
         return param;
     }
 
     checkMingGang(target: MjCard):GangResult {
-        let param:GangResult= {result:false};
+        let param:GangResult= {result:false,level:Action.GANG_MING};
         const gang_result = this.ai.checkCanMingGang(this.handCards,target);
         param.result = gang_result;
         return param;
     }
 
     checkAnGang(target: MjCard) {
-        let param:GangResult= {result:false};
+        let param:GangResult= {result:false,level:Action.GANG_AN};
         const gang_result = this.ai.checkCanAnGang(this.handCards,target);
         param.result = gang_result;
         return param;
     }
 
     checkBuGang(target: MjCard) {
-        let param:GangResult= {result:false};
+        let param:GangResult= {result:false,level:Action.GANG_BU};
         const gang_result = this.ai.checkCanBuGang(this.doorCard,target);
         param.result = gang_result;
         return param;
