@@ -2,3 +2,4 @@ Dist
 .vscode
 node_modules
 logs
+npm-debug.log

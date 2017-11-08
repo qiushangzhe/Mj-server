@@ -1,3 +1,4 @@
+import { ResponseAction } from './../../../common/interfaces/result.interface';
 import { SPlayer } from './../model/smartPlayer';
 import { GameEvent } from '../../../common/interfaces/event.interface';
 import { GameModel } from './../model/game.model';
@@ -15,7 +16,7 @@ export class GameLogic{
         const player = event.who;
         const discard = event.targetCard;
         const seats = this.gamemodel.desk.getSeats();
-        this.resultList.length = 0;
+        let resultList = [];
         for(let seat of seats){
             if(seat.player.getPlayerId() == player.getPlayerId()){
                 continue;
@@ -26,7 +27,7 @@ export class GameLogic{
             if(!hu.result && !gang.result && !peng.result){
                 continue;
             }
-            this.resultList.push({
+            resultList.push({
                 player : seat.player,
                 action:{
                     hu : hu,
@@ -36,18 +37,17 @@ export class GameLogic{
             });   
         }
         this.logger.debug(`打牌后判断结果`);
-        if(this.resultList.length === 0){
+        if(resultList.length === 0){
             this.logger.debug(`没有任何人可以碰杠胡`);
         }else{
-            this.resultList.forEach((obj)=>{
+            resultList.forEach((obj)=>{
                 this.logger.debug(`${obj.player.getPlayerId()}号玩家=>${JSON.stringify(obj.action)}`);
             })
         }
-        return this.resultList;
+        return resultList;
     }
 
     checkAfterDraw(player:SPlayer,card){
-        
         let hu = player.checkHu(card);
         let angang = player.checkAnGang(card);
         let bugang = player.checkBuGang(card);
@@ -63,7 +63,7 @@ export class GameLogic{
             gang.length !==0 && function(){action['gang']=gang};
             result = {
                 player : player,
-                action : gang
+                action : action
             }
         }
 
@@ -74,5 +74,28 @@ export class GameLogic{
         return result;
     }
 
+    // 注册响应事件
+    registeResponseAction(action){
+        this.resultList = action;
+    }
+    // 清空响应组
+    cleanResponse(){
+        this.resultList.length = 0;
+    }
+    // 判断当前是否相应事件
+    checkResponseAction(id,type){
+        if(this.resultList.length == 0){
+            this.logger.error(`无响应事件被注册，请检查逻辑`);
+            return false;
+        }
+        if(type == 'hu'){
+            
+        }else if(type == 'peng'){
 
+        }else if(type == 'gang'){
+
+        }
+    }
+
+    // 
 }

@@ -180,11 +180,17 @@ export class MainFlow extends StateMachine{
     }
     StateAfterDrawCardCallBack(event) {
         this.logger.trace(`切换到====>>>抓拍后分析阶段`);
-        const player = event.who;
+        const player:SPlayer = event.who;
         const targetCard = event.targetCard;
         const result = this.gamelogic.checkAfterDraw(player,targetCard);
         if(result !== null){
-
+            // 告知玩家当前可以进行的操作
+            this.psManage.ackPlayerNextAction(player.getPlayerId(),result.action);
+            this.changeToWaite({
+                who : player,
+                beforeState:MainStage.STAGE_AFTER_DRAWCARD,
+                waitInfo : result
+            });
         }else{
             this.changeToDisCard({
                 who:player,
@@ -195,6 +201,16 @@ export class MainFlow extends StateMachine{
     }
     StateFinalBalanceCallBack() {
         throw new Error("Method not implemented.");
+    }
+
+    StateWaitingCallBack(event:GameEvent){
+        const before = event.beforeState;
+        const result = event.waitInfo;
+        if(before == MainStage.STAGE_AFTER_DRAWCARD){
+
+        }else if(before == MainStage.STAGE_AFTER_DISCARD){
+            
+        }   
     }
     
 }

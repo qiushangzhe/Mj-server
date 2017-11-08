@@ -9,5 +9,6 @@ export enum MainStage {
     STAGE_AFTER_DISCARD, // 打牌后处理阶段
     STAGE_DRAWCARD, // 抓牌阶段
     STAGE_AFTER_DRAWCARD, // 抓牌后处理阶段
+    STAGE_WAITING,// 等待相应阶段
     STAGE_FINAL_BALANCE // 最后结算阶段（某人和了）
 }

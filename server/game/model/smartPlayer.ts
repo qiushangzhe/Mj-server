@@ -6,6 +6,7 @@ import { Player } from './player';
 
 export class SPlayer extends Player {
     ai : PlayerAi = null;
+    
     constructor(info: PlayerInfoInterface){
         super(info);
         this.ai = new PlayerAi();
@@ -17,20 +18,28 @@ export class SPlayer extends Player {
         param.result = peng_result;
         return param;
     }
+
     checkMingGang(target: MjCard):GangResult {
         let param:GangResult= {result:false};
-        const gang_result = this.ai.checkPeng(this.handCards,target);
+        const gang_result = this.ai.checkCanMingGang(this.handCards,target);
         param.result = gang_result;
         return param;
     }
+
     checkAnGang(target: MjCard) {
         let param:GangResult= {result:false};
+        const gang_result = this.ai.checkCanAnGang(this.handCards,target);
+        param.result = gang_result;
         return param;
     }
+
     checkBuGang(target: MjCard) {
         let param:GangResult= {result:false};
+        const gang_result = this.ai.checkCanBuGang(this.doorCard,target);
+        param.result = gang_result;
         return param;
     }
+
     checkHu(target: MjCard):HuResult {
         const result = this.ai.checkCanHu(this.handCards,target);
         return result;

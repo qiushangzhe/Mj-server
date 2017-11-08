@@ -1,4 +1,5 @@
-import { SPlayer } from '../../server/game/model/smartPlayer'
+import { PengResult } from './result.interface';
+import { SPlayer } from './../../server/game/model/smartPlayer';
 import { MjCard } from '../../server/game/model/MjCard/mjCard';
 export enum GangType {
     GANG_BU = 0,
@@ -38,3 +39,14 @@ export interface HuResult{
     // 是否可以胡牌
     result : boolean;
 }
+
+export interface ResponseAction{
+    player : SPlayer;
+    action? : ActionDetail;
+}
+
+export interface ActionDetail{
+    peng? : PengResult,
+    gang?: GangResult,
+    hu? :HuResult;
+}   

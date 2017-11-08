@@ -12,5 +12,8 @@ export interface GameEvent{
      * 当前牌的信息
      */
     targetCard?:MjCard;
-
+    /**
+     * 等待信息
+     */ 
+    waitInfo?;
 }

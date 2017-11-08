@@ -11,6 +11,7 @@ let stateChnChar = [
     '打牌后处理',
     '抓牌',
     '抓牌后处理',
+    '等待状态',
     '游戏结算'
 ];
 
@@ -99,6 +100,14 @@ export abstract class StateMachine {
         this.StateFinalBalanceCallBack();
     }
 
+    /**
+     * - 切换到等待阶段
+     */ 
+    changeToWaite(event:GameEvent){
+        this.nowStage = MainStage.STAGE_WAITING;
+        this.StateWaitingCallBack(event);
+    }
+
     getNowStage(){
         return this.nowStage;
     }
@@ -152,4 +161,9 @@ export abstract class StateMachine {
      * 结算回调
      */
     abstract StateFinalBalanceCallBack();
+
+    /**
+     * 等待回调
+     */ 
+    abstract StateWaitingCallBack(event:GameEvent);
 }
