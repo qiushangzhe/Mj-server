@@ -207,9 +207,9 @@ export class MainFlow extends StateMachine{
         const before = event.beforeState;
         const result = event.waitInfo;
         if(before == MainStage.STAGE_AFTER_DRAWCARD){
-
-        }else if(before == MainStage.STAGE_AFTER_DISCARD){
             
+        }else if(before == MainStage.STAGE_AFTER_DISCARD){
+
         }   
     }
     
