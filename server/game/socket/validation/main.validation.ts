@@ -42,4 +42,16 @@ export class GameMainValidation{
     static checkMsg_AnGangCard(msg){
         return true;
     }
+
+    static checkMsg_MingGangCard(msg){
+        return true;
+    }
+
+    static checkMsg_BuGangCard(msg){
+        return true;
+    }
+
+    static checkMsg_HuCard(msg){
+        return true;
+    }
 }

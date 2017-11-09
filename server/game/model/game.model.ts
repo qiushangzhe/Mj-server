@@ -3,6 +3,7 @@ import { SPlayer } from './smartPlayer';
 import { PlayerInfoInterface } from '../../../common/interfaces/playerInfo.interface';
 import * as log from 'log4js';
 import { MjDesk } from './MjDesk';
+import { Action } from '../../../common/enums/action.enum';
 export class GameModel{
     desk:MjDesk = null;
     logger;
@@ -23,7 +24,8 @@ export class GameModel{
 
     // 发牌
     dealCard(){
-        this.desk.initPlayerHandCard();
+        // this.desk.initPlayerHandCard();
+        this.desk.debug();
     }
 
     // 玩家打牌
@@ -85,5 +87,20 @@ export class GameModel{
         player.Action_Peng(card);
         const Be_player = this.getPlayerByPos(card._state.from);
         Be_player.BeAction_Peng(card);
+    }
+
+    // 玩家杠
+    playerGang(id,card:MjCard,gangType){
+        const player = this.getPlayerById(id);
+        const Be_player = this.getPlayerByPos(card._state.from);
+        if(player === null) this.logger.error(`输入的${id}，没有找到这个玩家`);
+        if(gangType == Action.GANG_MING){
+            player.Action_GangMing(card);
+            Be_player.BeAction_Gang(card);
+        }else if(gangType == Action.GANG_AN){
+            player.Action_GangAn(card);
+        }else if(gangType == Action.GANG_BU){
+            player.Action_GangBu(card);
+        }
     }
 }

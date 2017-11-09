@@ -25,7 +25,7 @@ export function checkMingGang(handCard:HandCard,target:MjCard){
 
 export function checkAnGang(handCard:HandCard,target:MjCard){
     const pointer = checkPengGang(handCard,target);
-    return pointer == 3;
+    return pointer == 4;
 }
 
 export function checkBuGang(doorCard:DoorCard,target){

@@ -16,4 +16,8 @@ export interface GameEvent{
      * 等待信息
      */ 
     waitInfo?;
+    /**
+     * 抓拍前置信息 normal ／ gang
+     */ 
+    drawType?;
 }

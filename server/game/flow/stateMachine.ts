@@ -79,9 +79,9 @@ export abstract class StateMachine {
     /**
      *  - 切换到抓牌阶段
      */
-    changeToDrawCard(){
+    changeToDrawCard(event:GameEvent){
         this.nowStage = MainStage.STAGE_DRAWCARD;
-        this.StateDrawCardCallBack();
+        this.StateDrawCardCallBack(event);
     }
 
     /**
@@ -150,7 +150,7 @@ export abstract class StateMachine {
     /**
      *  抓牌阶段回调
      */
-    abstract StateDrawCardCallBack();
+    abstract StateDrawCardCallBack(event:GameEvent);
 
     /**
      *  抓牌后处理阶段回调

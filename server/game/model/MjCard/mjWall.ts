@@ -123,6 +123,15 @@ export class MjWall {
         }
         return list;
     }
+
+    deleteCardFromWall(card){
+        for(let index in this._wall){
+            if(this._wall[index].compareCard(card)){
+                this._wall.splice(Number(index),1);
+                return;
+            }
+        }
+    }
 }
 // --------------  debug ------------
 const a = new MjWall({

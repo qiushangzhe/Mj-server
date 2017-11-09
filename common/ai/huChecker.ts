@@ -1,7 +1,7 @@
 import { QLOG,logconfig } from './../tools/log.tool';
 import * as log from 'log4js';
 const debug_log = log.getLogger('checkHu');
-const log_level = 'error';// 如果是debug 就输出。
+const log_level = 'trace';// 如果是debug 就输出。
 
 // -----------普通能组成顺子的牌--------------
 // 检查一坎

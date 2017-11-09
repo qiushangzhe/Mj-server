@@ -1,3 +1,4 @@
+import { MjCard } from './MjCard/mjCard';
 import { SPlayer } from './smartPlayer';
 import { MjWall } from './MjCard/mjWall';
 import { Position } from '../../../common/enums/player.enum';
@@ -96,6 +97,39 @@ export class MjDesk {
             let cardList = null;
             if(this.seats[index].position === this.zhuangPosition){
                 cardList  = this.cardWall.drawCardFromWall(14);
+            }else{
+                cardList = this.cardWall.drawCardFromWall(13);
+            }
+            this.seats[index].player.initHandCards(cardList);
+        }
+    }
+
+    // 给庄家发好牌
+    debug(){
+        const cardlist = [
+            new MjCard({type:1,point:0}),
+            new MjCard({type:1,point:1}),
+            new MjCard({type:1,point:2}),
+            new MjCard({type:0,point:2}),
+            new MjCard({type:0,point:2}),
+            new MjCard({type:0,point:2}),
+            new MjCard({type:0,point:3}),
+            new MjCard({type:0,point:3}),
+            new MjCard({type:0,point:3}),
+            new MjCard({type:0,point:5}),
+            new MjCard({type:0,point:5}),
+            new MjCard({type:0,point:5}),
+            new MjCard({type:3,point:1}),
+            new MjCard({type:3,point:2}),
+        ];
+        this.seats[this.zhuangPosition].player.initHandCards(cardlist);
+        for(let card of cardlist){
+            this.cardWall.deleteCardFromWall(card);
+        }
+        for(let index in this.seats){
+            let cardList = null;
+            if(this.seats[index].position === this.zhuangPosition){
+                continue;
             }else{
                 cardList = this.cardWall.drawCardFromWall(13);
             }

@@ -1,5 +1,6 @@
+import { MessageTypeReq } from '../../../common/enums/message.enum';
 import { SocketPlayerManage } from './player.socket';
-import * as ws from 'ws'
+import * as ws from 'ws';
 import { MainFlow } from './../flow/main.flow';
 import { QLOG } from './../../../common/tools/log.tool';
 import { GameMainValidation } from './validation/main.validation';
@@ -51,11 +52,14 @@ export class GameSocket {
     }
 
     initSocketEvent() {
-        this.registEvent(900, this.Event_LoginGameServer.bind(this), '登陆服务器');
-        this.registEvent(1000, this.Event_ReadyGame.bind(this), '准备游戏');
-        this.registEvent(1001, this.Event_DisCard.bind(this), '有人打牌');
-        this.registEvent(1002,this.Event_PengCard.bind(this),'有人碰牌');
-        this.registEvent(1003,,'有人暗杠');
+        this.registEvent(MessageTypeReq.REQ_LOGIN,  this.Event_LoginGameServer.bind(this), '登陆服务器');
+        this.registEvent(MessageTypeReq.REQ_GAMESTART, this.Event_ReadyGame.bind(this), '准备游戏');
+        this.registEvent(MessageTypeReq.REQ_DISCARD, this.Event_DisCard.bind(this), '有人打牌');
+        this.registEvent(MessageTypeReq.REQ_PENGCARD, this.Event_PengCard.bind(this),'有人碰牌');
+        this.registEvent(MessageTypeReq.REQ_ANGANG, this.Event_AnGangCard.bind(this),'有人暗杠');
+        this.registEvent(MessageTypeReq.REQ_MINGGANG, this.Event_AnGangCard.bind(this),'有人明杠');
+        this.registEvent(MessageTypeReq.REQ_BUGANG, this.Event_BuGangCard.bind(this),'有人补杠');
+        this.registEvent(MessageTypeReq.REQ_HU, this.Event_HuCard.bind(this),'有人和牌');
     }
 
     /**
@@ -135,6 +139,33 @@ export class GameSocket {
     Event_AnGangCard( msg , socket ){
         let result = GameMainValidation.checkMsg_AnGangCard(msg);
         if(!result) return;
-        this.flow.playerPengCard(socket.userid,msg);
+        // this.flow.playerPengCard(socket.userid,msg);
+    }
+
+    /**
+     * 有玩家明杠了
+     */
+    Event_MingGangCard( msg , socket ){ 
+        let result = GameMainValidation.checkMsg_MingGangCard(msg);
+        if(!result) return;
+        // this.flow.playerPengCard(socket.userid,msg);
+    }
+
+    /**
+     * 有玩家补杠了
+     */
+    Event_BuGangCard( msg , socket ){ 
+        let result = GameMainValidation.checkMsg_BuGangCard(msg);
+        if(!result) return;
+        // this.flow.playerPengCard(socket.userid,msg);
+    }
+
+    /**
+     * 有玩家胡牌了
+     */
+    Event_HuCard( msg , socket ){ 
+        let result = GameMainValidation.checkMsg_BuGangCard(msg);
+        if(!result) return;
+        // this.flow.playerPengCard(socket.userid,msg);
     }
 }

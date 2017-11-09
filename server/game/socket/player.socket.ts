@@ -1,3 +1,4 @@
+import { Action } from './../../../common/enums/action.enum';
 import { SPlayer } from '../model/smartPlayer';
 import { MessageTypeAck, MessageTypeError, MessageTypeReq } from '../../../common/enums/message.enum';
 import * as ws from 'ws';
@@ -157,6 +158,25 @@ export class SocketPlayerManage {
     broadcastPlayerPengCard(player:SPlayer,card){
         this.broadcast({
             type : MessageTypeAck.ACK_PENGCARD,
+            data : {
+                who : player.getBaseData(),
+                card : card
+            }
+        })
+    }
+
+    // 广播玩家 杠牌
+    broadcastPlayerGangCard(player:SPlayer,card,type){
+        let msgType = null;
+        if(type == Action.GANG_MING){
+            msgType = MessageTypeAck.ACK_MINGGANG;
+        }else if(type == Action.GANG_AN){
+            msgType = MessageTypeAck.ACK_ANGANG;
+        }else if(type == Action.GANG_BU){
+            msgType = MessageTypeAck.ACK_BUGANG;
+        }
+        this.broadcast({
+            type : msgType,
             data : {
                 who : player.getBaseData(),
                 card : card
