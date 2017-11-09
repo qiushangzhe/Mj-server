@@ -135,6 +135,7 @@ export class MainFlow extends StateMachine{
     StateReadyCallBack() {
         throw new Error("Method not implemented.");
     }
+    
     StateCrapCallBack() {
         throw new Error("Method not implemented.");
     }

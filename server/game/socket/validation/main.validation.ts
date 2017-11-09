@@ -38,4 +38,8 @@ export class GameMainValidation{
     static checkMsg_PengCard(msg){
         return true;
     }
+
+    static checkMsg_AnGangCard(msg){
+        return true;
+    }
 }
