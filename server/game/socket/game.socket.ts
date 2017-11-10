@@ -60,6 +60,7 @@ export class GameSocket {
         this.registEvent(MessageTypeReq.REQ_MINGGANG, this.Event_AnGangCard.bind(this),'有人明杠');
         this.registEvent(MessageTypeReq.REQ_BUGANG, this.Event_BuGangCard.bind(this),'有人补杠');
         this.registEvent(MessageTypeReq.REQ_HU, this.Event_HuCard.bind(this),'有人和牌');
+        this.registEvent(MessageTypeReq.REQ_PASS,this.Event_Pass.bind(this),'有人过牌');
     }
 
     /**
@@ -139,7 +140,7 @@ export class GameSocket {
     Event_AnGangCard( msg , socket ){
         let result = GameMainValidation.checkMsg_AnGangCard(msg);
         if(!result) return;
-        // this.flow.playerPengCard(socket.userid,msg);
+        this.flow.playerAnGangCard(socket.userid,msg);
     }
 
     /**
@@ -148,7 +149,7 @@ export class GameSocket {
     Event_MingGangCard( msg , socket ){ 
         let result = GameMainValidation.checkMsg_MingGangCard(msg);
         if(!result) return;
-        // this.flow.playerPengCard(socket.userid,msg);
+        this.flow.playerMingGangCard(socket.userid,msg);
     }
 
     /**
@@ -157,15 +158,24 @@ export class GameSocket {
     Event_BuGangCard( msg , socket ){ 
         let result = GameMainValidation.checkMsg_BuGangCard(msg);
         if(!result) return;
-        // this.flow.playerPengCard(socket.userid,msg);
+        this.flow.playerBuGangCard(socket.userid,msg);
     }
 
     /**
      * 有玩家胡牌了
      */
     Event_HuCard( msg , socket ){ 
-        let result = GameMainValidation.checkMsg_BuGangCard(msg);
+        let result = GameMainValidation.checkMsg_HuCard(msg);
         if(!result) return;
-        // this.flow.playerPengCard(socket.userid,msg);
+        this.flow.playerHuCard(socket.userid,msg);
+    }
+
+    /**
+     * 有人过牌了
+     */ 
+    Event_Pass( msg , socket ){
+        let result = GameMainValidation.checkMsg_Pass(msg);
+        if(!result) return;
+        // this.flow.playerPassCard();
     }
 }

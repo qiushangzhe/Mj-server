@@ -54,4 +54,8 @@ export class GameMainValidation{
     static checkMsg_HuCard(msg){
         return true;
     }
+
+    static checkMsg_Pass(msg){
+        return true;
+    }
 }

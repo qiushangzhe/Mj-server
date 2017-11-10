@@ -175,6 +175,14 @@ export class MainFlow extends StateMachine {
     }
 
     /**
+     * 有人过牌
+     */
+    playerGuoCard( userid , msg ){
+        this.logger.info(`玩家${userid}过`);
+        
+    }
+
+    /**
      * 断线重连
      * @param userid 谁
      */

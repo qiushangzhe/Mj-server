@@ -87,6 +87,7 @@ export class GameLogic {
         this.resultList.length = 0;
     }
     // 判断当前是否相应事件
+    // id:玩家id type:动作类型 result:是不是过牌
     checkResponseAction(id: number, type: number, result: boolean) {
         if (this.resultList.length == 0) {
             this.logger.error(`无响应事件被注册，请检查逻辑`);
@@ -137,6 +138,7 @@ export class GameLogic {
             this.logger.error(`玩家${id}发送了操作${weight}，但是在响应队列中没找到`);
             return null;
         }
+        
         for (let result of this.resultList) {
             for (let action in result.action) {
                 if (result.action[action].level >= weight && target_result != result) {

@@ -17,7 +17,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "q":"clear && ts-node app.ts",
+    "q": "clear && ts-node app.ts",
     "dev": "node ./Dist/net/GameServe.js",
     "build": "tsc"
   },

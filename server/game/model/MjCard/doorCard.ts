@@ -21,7 +21,7 @@ export class DoorCard {
     // 变碰组牌 为 补杠 组牌
     ChangeBuGang(card:MjCard){
         this._cardlist.map((group:MjGroup)=>{
-            if(group.judgeGang(card,Action.PENG) !== false){
+            if(group.checkCanBuGang(card,Action.PENG) !== false){
                 group.changeBuGang();
             }
         })

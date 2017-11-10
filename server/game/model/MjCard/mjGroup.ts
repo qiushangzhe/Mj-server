@@ -20,8 +20,11 @@ export class MjGroup {
         this.groupType = Action.GANG_BU;
     }
 
-    checkCanBuGang(card: MjCard) {
-        return this.cardList[0].compareCard(card);
+    checkCanBuGang(card: MjCard , type) {
+        if(this.groupType == Action.PENG && this.cardList[0].compareCard(card)){
+            return true;
+        }
+        return false;
     }
 
     createPeng(card: any) {

@@ -8,7 +8,8 @@ export enum MessageTypeReq {
     REQ_ANGANG,
     REQ_MINGGANG,
     REQ_BUGANG,
-    REQ_HU
+    REQ_HU,
+    REQ_PASS
 };
 
 // 服务器告知客户端
